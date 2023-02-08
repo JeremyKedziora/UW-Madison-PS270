@@ -1,0 +1,39 @@
+---
+title: "Homework 6"
+output: html_document
+date: "2022-11-04"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Instructions
+
+Answer the following questions in the spaces provided. For any written explanations, write answers *outside* of code chunks. Insert code chunks and write code for answers that require coding.
+
+Knit the .Rmd file when you are finished (also knit along the way to catch bugs in code early). Make sure your code and output are visible in the knitted document. Submit *both* the knitted HTML file *and* the .Rmd file to Canvas. (You should probably check over the knitted document before submitting it.)
+
+We have developed our ability to build and interpret regression models in which we model the effect of independent variables on a dependent variable as $y = \beta_0 + \beta_1x_1 + \beta_2x_2 + ... + \varepsilon$.  This week we will take a step back from coding and data to think more conceptually about what we are doing when we use models like hypothesis testing and regression.
+
+In this assignment, we will practice approaching a data-driven question from its theoretical foundations. Consider these three questions. 
+
+1. **US politics:** Different groups of people tend (on average) to have somewhat different beliefs about political issues. How might an individuals' *socioeconomic status* influence whether they have generally more conservative or liberal views on *social issues* (LGBTQ rights, abortion, discrimination on the basis of race or gender, school prayer).
+    - Independent variable ($X$): socioeconomic status (high or low)
+    - Dependent variable ($Y$): social issue beliefs (high conservatism or low conservatism [a.k.a. liberal])
+
+2. **Politics around the world:** Many countries are democracies, and many are autocracies. How might the economic conditions within a country (the level of wealth in the general public) affect whether a country transitions from autocracy to democracy?
+    - Independent variable ($X$): citizen wealth (higher or lower)
+    - Dependent variable ($Y$): likelihood of transition to democracy (likely or unlikely)
+
+3. **International relations:** War between countries (a.k.a. "states") is one of the most consequential political phenomena in the world. How does the physical distance between states influence the likelihood that they go to war? 
+    - Independent variable ($X$): Distance between states (near or far)
+    - Dependent variable ($Y$): likelihood of war (likely or unlikely)
+
+## Question 1
+In ***no more than one page*** of single-spaced text, pick **only one** of the above topics and use it to answer the following questions.
+
+1. Theory: lay out a brief theoretical reason why $X$ and $Y$ might be related. Take only a couple sentences to convey the main idea.
+2. Hypothesis: If your theoretical mechanism were true, what would the relationship between $X$ and $Y$ be? Would it be a *positive* relationship (as $X$ increases, $Y$ also increases) or a *negative* relationship (as $X$ increases, $Y$ decreases)?
+3. Measurement: Propose a way to measure both $X$ and $Y$. How might you classify (for example...) individuals as high/low socioeconomic status, counties as democracies/autocracies, countries as warring/not warring, and so on? Try to be as specific as you can be within the page constraint.
+

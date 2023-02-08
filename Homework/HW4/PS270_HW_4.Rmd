@@ -1,0 +1,43 @@
+---
+title: "Homework 4"
+output: html_document
+date: "2022-10-21"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Instructions
+
+Answer the following questions in the spaces provided. For any written explanations, write answers *outside* of code chunks. Insert code chunks and write code for answers that require coding.
+
+Knit the .Rmd file when you are finished (also knit along the way to catch bugs in code early). Make sure your code and output are visible in the knitted document. Submit *both* the knitted HTML file *and* the .Rmd file to Canvas. (You should probably check over the knitted document before submitting it.)
+
+## Question 1
+
+In class, we explored hypothesis testing by extending the example of a mayoral political campaign that had claimed that it would win an election by getting more than 50 percent of votes.  We considered devising a test of this claim in which we sampled voters and counted those who supported the campaign's candidate.  In class, our example test involved sampling 15 voters and observing that 6 of them said they planned to vote for the candidate.  Suppose instead that we sampled 30 voters and observed that 6 of them planned to vote for the candidate.  What would the p-value be in this case?  Should we believe the campaign's claim?  
+
+```{r}
+
+(dbinom(0,30,prob = 0.5)
++dbinom(1,30,prob = 0.5)
++dbinom(2,30,prob = 0.5)
++dbinom(3,30,prob = 0.5)
++dbinom(4,30,prob = 0.5)
++dbinom(5,30,prob = 0.5)
++dbinom(6,30,prob = 0.5))
+
+```
+
+## Question 2
+
+Consider the Gerber and Green data set of Homework 2.  Conduct a difference of means test to assess the hypothesis that those who are contacted by phone donate a different amount of money than those who are not and interpret the results.  What does this test tell us?
+
+```{r}
+library(foreign)
+data = read.csv('/Users/jeremykedziora/Documents/UW Madison/Political Science/PS_270/Homework/HW2/gerber_and_green_data.csv')
+data_1 = subset(data,contacted_by_phone == 1)
+data_0 = subset(data,contacted_by_phone == 0)
+t.test(x = data_1$donation, y = data_0$donation)
+```

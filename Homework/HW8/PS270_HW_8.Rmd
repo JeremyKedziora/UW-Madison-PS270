@@ -1,0 +1,29 @@
+---
+title: "Homework 8"
+output: html_document
+date: "2022-11-25"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Instructions
+
+Answer the following questions in the spaces provided. For any written explanations, write answers *outside* of code chunks. Insert code chunks and write code for answers that require coding.
+
+Knit the .Rmd file when you are finished (also knit along the way to catch bugs in code early). Make sure your code and output are visible in the knitted document. Submit *both* the knitted HTML file *and* the .Rmd file to Canvas. (You should probably check over the knitted document before submitting it.)
+
+## Question 1
+
+In this assignment we turn towards working on our ability to implement a logistic regression to model a binary dependent variable.  We will be working with data from a scientific study on interstate violence.  Scholars have argued that the post-WWII era is characterized by a liberal peace driven by two things: first democratic countries tend not to fight one another; second countries with deep economic ties tend not to fight one another.  We will assess these theoretical claims using data and models.
+
+Our data come from Oneal and Russett's *International Studies Quarterly* article "The Classical Liberals Were Right: Democracy, Interdependence, and Conflict, 1950-1985."  Begin by downloading the data and load it into Rstudio.  The unit of analysis in this data is the state-dyad-year; each row of the data has information about a pair of countries from a certain year.  There are eight columns that measure various aspects of the dyad.  The variable **democracy** measures whether the countries in the dyad are democracies (1) or not (-1).  The variable **econ_growth** measures the economic growth across the countries in the dyad in percentage terms.  **Allies** measures whether the countries in the dyad are formal treaty allies (1) or not (0).  **Contig** records whether the countries in the dyad are contiguous so that they share a border (1) or not (0).  The variable **cprt** measures the ratio of military capabilities in the dyad.  **Trade** measures the amount of trade between the two countries in the dyad.  **Contdisp** measures whether the two countries in the dyad are involved in an ongoing dispute (1) or not (0) from a previous year.  Finally, **mid** records whether the countries in the dyad began a militarized interstate dispute.
+
+Begin by removing any rows in the data in which the two countries in the dyad are involved in an **ongoing** dispute.  How many rows are left in the data after doing this?
+
+## Question 2
+
+Run a logistic regression in which **mid** is the dependent variable and the independent variables include **democracy**, **econ_growth**, **allies**, **contig**, **cprt**, and **trade** plus an intercept.  Does the liberal peace seem to hold?  How can you use the regression results to substantiate your conclusion about the liberal peace?
+
+

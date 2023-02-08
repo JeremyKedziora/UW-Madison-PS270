@@ -1,0 +1,34 @@
+---
+title: "Homework 5"
+output: html_document
+date: "2022-10-28"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Instructions
+
+Answer the following questions in the spaces provided. For any written explanations, write answers *outside* of code chunks. Insert code chunks and write code for answers that require coding.
+
+Knit the .Rmd file when you are finished (also knit along the way to catch bugs in code early). Make sure your code and output are visible in the knitted document. Submit *both* the knitted HTML file *and* the .Rmd file to Canvas. (You should probably check over the knitted document before submitting it.)
+
+## Question 1
+
+We will be practicing linear regression by working with a simple data set that records information on the level of violence in the international system.  In the data there are three columns: 1) years, which indicates which year the observation records; 2) percent, which measures the percent of countries in the international system that are members of an alliance; 3) n_countries_at_war, which measures the number of countries in the international system that are at war.  Create a linear regression model in which n_countries_at_war is the dependent variable and the independent variables include a constant and the percent variable.  Interpret the results of the regression by discussing the coefficients and the p-values.  What effect do alliances appear to have on the level of violence in the international system?
+
+```{r}
+library(foreign)
+wars_data = read.csv('/Users/jeremykedziora/Documents/UW Madison/Political Science/PS_270/Homework/HW5/wars_data.csv')
+model = lm(n_countries_at_war ~ percent,data = wars_data)
+summary(model)
+```
+
+## Question 2
+
+Using the results of the regression from Q1, what value of percent would lead to the most countries at war?  How many countries would be at war at that value of percent?
+
+```{r}
+model$coefficients[1] + model$coefficients[2]*100
+```

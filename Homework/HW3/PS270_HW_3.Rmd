@@ -1,0 +1,39 @@
+---
+title: "Homework 3"
+output: html_document
+date: "2022-10-14"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Instructions
+
+Answer the following questions in the spaces provided. For any written explanations, write answers *outside* of code chunks. Insert code chunks and write code for answers that require coding.
+
+Knit the .Rmd file when you are finished (also knit along the way to catch bugs in code early). Make sure your code and output are visible in the knitted document. Submit *both* the knitted HTML file *and* the .Rmd file to Canvas. (You should probably check over the knitted document before submitting it.)
+
+## Question 1
+
+In class, we motivated the importance of understanding random variables and probability by imagining a mayoral political campaign that had claimed that it would win an election by getting more than 50 percent of votes.  We considered devising a test of this claim in which we sampled voters and counted those who supported the campaign's candidate.  Suppose that the candidate is truly going to win the election (more than 50 percent of voters support them) but that we observe that only 10 percent of our sample intend to vote for the candidate.  Suggest an explanation for this discrepancy.
+
+Selection bias.
+
+## Question 2
+
+Consider the binomial distribution we discussed in class, which models the probability of $k$ successes after $n$ tries, each of which has probability $\pi$ of success.   What is the probability of 3 successes in 10 tries if each has probability 0.5 of success?  What is the probability of at least 7 successes in 10 tries if each has probability of 0.5 of success?
+
+```{r}
+
+dbinom(x = 3, size = 10, prob = 0.5)
+
+(dbinom(x = 7, size = 10, prob = 0.5) 
++ dbinom(x = 8, size = 10, prob = 0.5) 
++ dbinom(x = 9, size = 10, prob = 0.5)
++ dbinom(x = 10, size = 10, prob = 0.5))
+
+#alternatively:
+1 - pbinom(q = 6, size = 10, prob = 0.5)
+
+```

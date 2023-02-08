@@ -1,0 +1,55 @@
+---
+title: "Final Exam"
+output: html_document
+date: "2022-12-13"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Instructions
+
+This final exam is open book, open note, and you are welcome to use any code from class or from your previous homework assignments.  **Please do not collaborate with any other students.**  Answer the following questions in the spaces provided. For any written explanations, write answers *outside* of code chunks. Insert code chunks and write code for answers that require coding.
+
+Knit the .Rmd file when you are finished (also knit along the way to catch bugs in code early). Make sure your code and output are visible in the knitted document. Submit *both* the knitted HTML file *and* the .Rmd file to Canvas. (You should probably check over the knitted document before submitting it.)
+
+## Question 1
+
+Imagine that you are in charge of data and analytics for Pete Buttigieg's 2028 presidential campaign.  The latest round of tracking polls for the upper midwest has just come across your desk, with the following results (run the code block to see them):
+
+```{r echo = FALSE}
+State = c('Wisconsin','Michigan','Minnesota','Indiana','Illinois')
+Buttigieg_voters = c(595,485,131,1239,1561)
+number_of_respondents = c(1312,985,251,2501,2710)
+tracking_polls = data.frame(State,Buttigieg_voters,number_of_respondents)
+print(tracking_polls)
+```
+
+The campaign weekly strategy meeting, in which allocations of campaign resources will be decided, is scheduled for this afternoon.  On the basis of this data, which states do you recommend increasing spending in and why (SUGGESTION: compute the margin of error using the equation from lecture and use it to make your argument)?
+
+## Question 2
+
+One of the major sources of violence since the end of the cold war has been intra-state civil war.  An influential argument for why there have been so many civil wars since 1990 focuses on ethnic and religious drivers of conflict; according to this argument countries with more ethnic and religious diversity should be more likely to have civil wars.  In 'Ethnicity, Insurgency, and Civil War', Stanford University scholars Fearon and Laitin argue that civil wars are driven instead by the presence of conditions that favor successful insurgency, for example the presence of rough or mountainous terrain that prevents effective state control of territory.  To test these two theories, they run a logistic regression in which the dependent variable is the outbreak (1) or not (0) of a civil war in a given country-year.  They include a variety of independent variables:
+
+* Per Capita Income: measuring social wealth;
+* log(Population): the logged total population of the country;
+* log(Percent Moutainous): the logged total area of the country consisting of mountainous terrain;
+* Noncontiguous state: whether a country is (1) or is not (0) contiguous;
+* Oil Exporter: does the country derive more than one third of export revenues from oil (1) or not (0);
+* New state: is the country in its first two years of independence (1) or not (0);
+* Instability: has the country had a significant change in how democratic it is (1) or not (0);
+* Democracy: how democratic the country is as measured by POLITY IV (higher is more democratic);
+* Ethnic Fractionalization: a measure of the share of each ethnic group in society (higher means more diversity);
+* Religious Fractionalization: a measure of the share of each religious group in society (higher means more diversity);
+
+Their results are below (run the code block to see them).  Interpret the Fearon and Laitin logistic regression results by discussing the coefficient sign (greater or less than zero) and statistical significance.  What do these results indicate about which theory (ethnic and religious drivers OR insurgency conditions) of civil war onset is correct?
+
+```{r echo = FALSE}
+Variable = c('Per Capita Income','log(Population)','log(Percent Mountainous)'
+  ,'Noncontiguous State','Oil Exporter','New State','Instability','Democracy','Ethnic Fractionalization'
+  ,'Religious Fractionalization','Intercept')
+Coefficient = c(-0.344,0.263,0.219,0.443,0.858,1.709,0.618,0.021,0.166,0.285,-6.731)
+p_value = c(0.0023, 0.0003, 0.0100, 0.1058, 0.0022, 0.0000, 0.0085, 0.2186, 0.6693, 0.5875, 0.0000)
+print(data.frame(Variable,Coefficient,p_value))
+```

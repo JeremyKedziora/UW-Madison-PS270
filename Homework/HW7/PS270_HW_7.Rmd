@@ -1,0 +1,63 @@
+---
+title: "Homework 7"
+output: html_document
+date: "2022-11-04"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Instructions
+
+Answer the following questions in the spaces provided. For any written explanations, write answers *outside* of code chunks. Insert code chunks and write code for answers that require coding.
+
+Knit the .Rmd file when you are finished (also knit along the way to catch bugs in code early). Make sure your code and output are visible in the knitted document. Submit *both* the knitted HTML file *and* the .Rmd file to Canvas. (You should probably check over the knitted document before submitting it.)
+
+In the last assignment we practiced thinking theoretically about a problem, hypothesizing what effects independent variables might have on dependent variables, and planning how to measure them.  We have also developed our ability to build and interpret multiple linear regression models in which we model the effect of independent variables on a dependent variable as $y = \beta_0 + \beta_1x_1 + \beta_2x_2 + ... + \varepsilon$.  Finally, we have practiced using the results of a linear regression model to make predictions (for example in Q2 of HW4).  This week we will bring it all together to build and interpret a linear regression model using raw data.
+
+## Question 1
+
+In this assignment, we will be working with World Health Organization data on life expectancy.  Begin by downloading the data and the codebook.  Open the codebook in a pdf viewer and import the data into R.  First remove extra variables.  Keep only those that appear in the codebook, plus country and regionname.  Rename the variables in the dataset that appear in the codebook with more informative names.  Print a summary of the variables in this trimmed down dataset using the summary() command in R.
+
+```{r}
+library(foreign)
+data = read.csv('/Users/jeremykedziora/Documents/UW Madison/Political Science/PS_270/Homework/HW7/who2009.csv')
+#data = data[,colnames(data) %in% c('country','v9','v22','v159','v168','v174','v186','v192','v249','v259','regionname')]
+data = data.frame(data$country,data$v9,data$v22,data$v159,data$v168,data$v174
+                        ,data$v186,data$v192,data$v249,data$v259,data$regionname)
+colnames(data) = c('country','life_exp','infant_mortality','phys_density','hospital_bed','health_exp_percent_GDP'
+                      ,'OOP_percent_exp','health_exp_PC','fertility_rate','GNI_PC','regionname')
+summary(data)
+```
+
+## Question 2
+
+Plot the relationship between life expectancy ($y$) and GNI per capita ($x$). The relationship should appear logarithmic. Why does it make sense that the relationship is logarithmic?
+
+```{r}
+plot(data$GNI_PC,data$life_exp,axes = FALSE,pch = 18,col = 'lightskyblue'
+        ,xlab = 'GNI per capita',ylab = 'Life Expectancy')
+axis(1)
+axis(2)
+```
+
+## Question 3
+
+Estimate a model where life expectancy is a function of: health expenditures as a percentage of GDP, adding GNI per capita (using an appropriate transformation given what you learned in Q2) and infant mortality as additional control variables.  Plot the model's predicted values of life expectancy as a function of the health expenditures percentage of GDP, setting all other variables at their means.  Interpret each coefficient and whether these relationships are statistically significant.  What is the main takeaway from this model?
+
+```{r}
+
+model = lm(life_exp ~ health_exp_percent_GDP + I(log(GNI_PC)) + infant_mortality,data = data)
+summary(model)
+
+data_for_prediction = data
+data_for_prediction$GNI_PC = mean(data_for_prediction$GNI_PC,na.rm = TRUE)
+data_for_prediction$infant_mortality = mean(data_for_prediction$infant_mortality)
+
+plot(data$health_exp_percent_GDP,predict(model,data_for_prediction),axes = FALSE,pch = 18, col = 'lightskyblue'
+        ,xlab = 'Health Expenditure (% GDP)',ylab = 'Predicted Life Expectancy')
+axis(1)
+axis(2)
+
+```

@@ -1,0 +1,45 @@
+---
+title: "Homework 9"
+output: html_document
+date: "2022-12-3"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Instructions
+
+Answer the following questions in the spaces provided. For any written explanations, write answers *outside* of code chunks. Insert code chunks and write code for answers that require coding.
+
+Knit the .Rmd file when you are finished (also knit along the way to catch bugs in code early). Make sure your code and output are visible in the knitted document. Submit *both* the knitted HTML file *and* the .Rmd file to Canvas. (You should probably check over the knitted document before submitting it.)
+
+## Question 1
+
+In this (final!) homework we will use data from a poll of Americans conducted by NPR/PBS NewsHour/Marist in August of 2020. This data includes  Some variables from that survey are contained in the file **marist_cleaned.csv**, available on Canvas. Here is a description of the variables in that file: **voter_registration**: Whether or not the respondent is a registered voter; **education**: Whether or not the respondent has graduated from college; **would_vote_biden**: Whether (1) or not (0) the respondent has expressed intent to vote for Biden in the 2020 election; and finally **would_vote_trump**: Whether (1) or not (0) the respondent has expressed intent to vote for Trump in the 2020 election.
+
+Load the data set into Rstudio. Who does the data indicate would win the election?
+```{r}
+data = read.csv('/Users/jeremykedziora/Documents/UW Madison/Political Science/PS_270/Homework/HW9/marist_cleaned.csv')
+mean(data$would_vote_biden)
+mean(data$would_vote_trump)
+```
+
+## Question 2
+
+Use bootstrapping to generate a 95% confidence interval over: 1) the fraction of respondents who support Biden; 2) the fraction of respondents who support Trump.  Write a sentence or two describing these results.  What can you conclude about the outcome of the 2020 election given what you have found?
+
+```{r}
+
+n_trump = c()
+n_biden = c()
+n_sim = 1000
+for(i in 1:n_sim){
+  data_boot = data[sample(seq(1,nrow(data)),nrow(data),replace = TRUE),]
+  n_biden = c(n_biden,mean(data_boot$would_vote_biden))
+  n_trump = c(n_trump,mean(data_boot$would_vote_trump))
+}
+sort(n_biden)[c(25,975)]
+sort(n_trump)[c(25,975)]
+```
+

@@ -1,0 +1,49 @@
+---
+title: "Final Exam"
+output: html_document
+date: "2022-12-22"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Instructions
+
+This final exam is open book, open note, and you are welcome to use any code from class or from your previous homework assignments.  **Please do not collaborate with any other students.**  Answer the following questions in the spaces provided. For any written explanations, write answers *outside* of code chunks. Insert code chunks and write code for answers that require coding.
+
+Knit the .Rmd file when you are finished (also knit along the way to catch bugs in code early). Make sure your code and output are visible in the knitted document. Submit *both* the knitted HTML file *and* the .Rmd file to Canvas. (You should probably check over the knitted document before submitting it.)
+
+## Question 1
+
+Imagine that you are in charge of data and analytics for Pete Buttigieg's 2028 presidential campaign.  Your team has put together a simple linear regression analysis of the factors that influence Buttigieg's vote proportion at the state level, with the following results (run the code block to see them):
+
+```{r echo = FALSE}
+Variable = c('intercept','state_GDP_growth','inequality_gini','racial_fractionalization','voted_democrat_2024')
+Coefficient = c(0.4531,-0.2301,0.0265,0.564,0.382)
+p_value = c(0.0167,0.0484,0.0218,0.0015,0.0182)
+regression = data.frame(Variable,Coefficient,p_value)
+print(regression)
+```
+
+In this regression, the dependent variable is the proportion (percent) of Buttigieg voters (from state level polls).  The independent variables are **state_GDP_growth** which measures percent change in GDP at the state level in the last year, **inequality_gini** which measures state level inequality using the gini coefficient (higher means more inequality), **racial_fractionalization** which measures the share of each racial group in society (higher means more diversity), and **voted_democrat_2024** a binary indicator in which a state voted for the democratic 2024 presidential candidate (1) or not (0).   Today you are interested in the upper midwest and you note that the states in question have the following values for these independent variables:
+
+```{r echo = FALSE}
+State = c('Wisconsin','Michigan','Minnesota','Indiana','Illinois')
+state_GDP_growth = c(2.63,1.32,3.39,1.69,2.27)
+inequality_gini = c(0.68,0.77,0.54,0.63,0.82)
+racial_fractionalization = c(0.53, 0.43, 0.83, 0.65, 0.59)
+voted_democrat_2024 = c(1,0,1,0,1)
+state_data = data.frame(State,state_GDP_growth,inequality_gini,racial_fractionalization,voted_democrat_2024)
+
+0.4531 - 0.2301*state_GDP_growth + 0.0265*inequality_gini + 0.564*racial_fractionalization + 0.382*voted_democrat_2024
+
+print(state_data)
+```
+
+The campaign weekly strategy meeting, in which allocations of campaign resources will be decided, is scheduled for this afternoon.  Using these regression results, predict Buttigieg's vote proportion in these states.   On the basis of these predictions, which states do you recommend increasing spending in and why?  How would your answer change if Buttigieg's vote proportions in these states were trending down vs up over the last two weeks of tracking polls?
+
+## Question 2
+
+Before you make a recommendation about using campaign funds, you decide it would be a good idea to meet with the dedicated statisticians and data scientists on your team about the regressions they ran so you can assess whether the campaign can rely on their results.  During their presentation to you, you learn that your team considered but ultimately rejected using state level support for current democratic congressional candidates as a predictor of Buttigieg's vote total.  Discuss why they rejected using this information and whether excluding that variable makes the results more reliable (HINT #1: during presidential elections it is typical to have down ballot voting in which supporters of a presidential candidate also support the congressional candidates from the same party; HINT #2: consider the 'Problems in Regression' lecture).
+

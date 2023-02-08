@@ -1,0 +1,54 @@
+---
+title: "Homework 2"
+output: html_document
+date: "2022-10-08"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Instructions
+
+Answer the following questions in the spaces provided. For any written explanations, write answers *outside* of code chunks. Insert code chunks and write code for answers that require coding.
+
+Knit the .Rmd file when you are finished (also knit along the way to catch bugs in code early). Make sure your code and output are visible in the knitted document. Submit *both* the knitted HTML file *and* the .Rmd file to Canvas. (You should probably check over the knitted document before submitting it.) See the assignment page on Canvas for more tips.
+
+You will be using the `gerber_and_green_data.csv` data set provided on the canvas files/Homework/Homework_2 page.  In this data there are multiple variables represented in the columns: persons (total in household), age (in years), contacted_by_phone (1 for yes, 0 for no), voted_last_election (1 for yes, 0 for no), and donation (in dollars).  Each row is an individual household.  Assume that these households have been chosen randomly for phone contact.
+
+## Question 1
+
+Load the `gerber_and_green_data.csv` data into Rstudio.  How many rows and columns are in this data?
+```{r}
+library(foreign)
+filepath = '/Users/jeremykedziora/Documents/UW Madison/Political Science/PS_270/Homework/HW2/gerber_and_green_data.csv'
+data = read.csv(filepath)
+print(dim(data))
+```
+## Question 2
+
+In lecture, when we discussed causal inference we worked with an extended example in which a political campaign was trying to assess the effects of in-person visits on fundraising.  Imagine that you are working for the campaign and that you want to conduct a similar analysis on the effect of phone calls on political activity.  You suspect that contacting individuals by phone may have an effect on propensity to vote.  Create a bar chart that assesses whether or not this is true.  Explain what effect, if any, phone contact has on propensity to vote and why you think this is the case.
+
+```{r}
+contacted = subset(data,contacted_by_phone == 1)
+not_contacted = subset(data,contacted_by_phone == 0)
+
+frac_contacted_voted = sum(contacted$voted_last_election)/nrow(contacted)
+frac_not_contacted_voted = sum(not_contacted$voted_last_election)/nrow(not_contacted)
+
+barplot(c(frac_contacted_voted,frac_not_contacted_voted),col='lightskyblue',border = NA,names.arg = c('contacted','not contacted'))
+```
+
+The plot shows that a higher frequency of those contacted voted.
+
+## Question 3
+
+You also suspect that the campaign could increase fundraising through a well-executed phone outreach effort.  Assess this by computing the average causal effect of being contacted by phone on political donations.  Would you recommend that the campaign contact individuals by phone?
+
+```{r}
+contacted = subset(data,contacted_by_phone == 1)
+not_contacted = subset(data,contacted_by_phone == 0)
+
+mean(contacted$donation) - mean(not_contacted$donation)
+```
+The average causal effect was $324 -- good idea to contact.
