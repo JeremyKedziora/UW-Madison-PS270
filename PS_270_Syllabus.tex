@@ -1,0 +1,421 @@
+%\documentclass[10pt,twocolumn]{article}
+\documentclass[12pt]{article}
+
+\title{Political Science 270: Understanding Political Numbers}
+\author{Jeremy Kedziora}
+\usepackage{amsmath,amssymb,graphicx,amsthm}
+\usepackage{setspace}
+\usepackage{palatino}
+\usepackage{mathpazo}
+\usepackage{url}
+\usepackage{hyperref}
+\usepackage{xcolor}
+
+\usepackage[left=1in,top=1in,right=1in,bottom=1in,nohead]{geometry}
+%\usepackage[left=0.5in,top=0.75in,right=0.5in,bottom=1in,nohead]{geometry}
+
+\singlespacing
+%\author{Jeremy Kedziora}
+
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{definition}[]{Definition}
+\newtheorem{assumption}[]{Assumption}
+\newtheorem*{example}{Example 1}
+
+\newenvironment{result}[1][Result]{\begin{trivlist}
+\item[\hskip \labelsep {\bfseries #1}]}{\end{trivlist}}
+
+\newenvironment{remark}[1][Remark]{\begin{trivlist}
+\item[\hskip \labelsep {\bfseries #1}]}{\end{trivlist}}
+\newcommand{\argmax}{\operatornamewithlimits{argmax}}
+\newcommand{\argmin}{\operatornamewithlimits{argmin}}
+
+\newcommand{\pderiv}[2]{\frac{\partial #1}{\partial #2}}
+\newcommand{\secondpderiv}[3]{\frac{\partial^2 #1}{\partial #2\partial #3}}
+
+\begin{document}
+\begin{center}
+\noindent\huge \textbf{Political Science 270\\Understanding Political Numbers}\\
+\end{center}
+\vspace{10mm}
+
+\normalsize\noindent
+\begin{tabular*}{6.5in}{l@{\extracolsep{\fill}}r}
+Instructor: Jeremy Kedziora & E-mail: jtkedziora@wisc.edu\\
+Lectures: Monday and Wednesday, 4:35-5:25 & Location: 360 Science Hall\\
+Office Hours: W 330--430, F 1130--1230 & Location: Memorial Union/virtual\\
+\hline
+\hline
+TA: Hasaan Parker& E-mail: hwparker@wisc.edu\\
+Office Hours: Thursday/Friday 2:00 - 3:00 & Location: North Hall TA room\\
+\hline
+\hline
+Section 1: Tuesday, 9:55-10:45& 3218 Sewell Social Sciences\\
+Section 2: Wednesday 2:25 - 3:15& 3218 Sewell Social Sciences\\
+Section 3: Wednesday 12:05 - 12:55& 3218 Sewell Social Sciences\\
+\end{tabular*}
+\vspace{10mm}
+
+%@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+\noindent \Large \textbf{Course Overview}\normalsize\\
+
+\noindent We live in an era in which data on human activity is ubiquitous and growing.\footnote{\href{https://www.forbes.com/sites/gilpress/2021/12/30/54-predictions-about-the-state-of-data-in-2021/?sh=7e0d7e36397d}{\color{blue}\underline{Some}} estimate a 5000\% growth rate from 2010 to 2020!}  Many aspects of our world have been impacted by the availability of information and ever cheaper computing power, \textbf{and politics is no exception}.  \href{https://fivethirtyeight.com/politics/}{Media coverage of politics and government} has increasingly incorporated numbers, quantitative information, and sophisticated modeling over the last 15 years.  \href{https://projects.fivethirtyeight.com/biden-approval-rating/?ex_cid=rrpromo}{Polls, poll aggregators, and election winner forecasts} are expected parts of the information marketplace for political event watchers.\\
+\\
+\noindent Unfortunately, the process of creating and interpreting these numbers is not as straightforward as it may seem.  Purveyors of quantitative political information do so to make arguments, engage in advocacy, and influence the world around them.  Building the numbers to support an argument invariably involves choices over, for instance what data to include or exclude, what models to build, and how to present results.  Control over those choices is control over the information marketplace and therefore learning about political numbers will inform your participation in our society.\\
+\\
+\noindent This course will give you the skills to evaluate the choices others make when presenting numbers about politics and to make those choices yourselves in a principled fashion across domains.  Analyzing any data involves some technical skills, and we will devote time to developing them over the course of the semester.  Perhaps even more important, we will build the reasoning skills necessary to design quantitative studies well, interpret their findings correctly, and evaluate the quality of political data analysis. Finally, while polling and election forecasts are the most common examples of political numbers seen by most people, there are a number of other types of quantitative data used by political science researchers and this class will explore them.\\
+
+
+
+%@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+\noindent \Large \textbf{Learning Objectives}\normalsize\\
+
+\noindent By the end of the semester you will have mastered the statistical principles and computational skills needed to apply statistical modeling to empirical data.  You will understand the assumptions, requirements, and limitations of statistical modeling, and you will know how to make inferences that make the most of what your data can offer.  You will have gained considerable expertise developing the R code to do this.  In doing so you will be empowered to make your own choices about what quantitative content to believe and what to dismiss.
+\begin{itemize}
+\item Critically read and interpret quantitative content in academic and non-academic publications related to politics and the social sciences;
+\item Manipulate quantitative information to create your own quantitative analysis of social science problems using techniques including regression modeling, hypothesis testing, and related statistical or machine learning concepts;
+\item Evaluate models and arguments using quantitative information;
+\item Express and interpret in context models, solutions and/or arguments using verbal, numerical, graphical algorithmic, computational or symbolic techniques;
+\item Write basic R code incorporating coding best practices;
+\item Feel empowered working with data and models.
+\end{itemize}
+Satisfies QRB criteria, 3 credits, LAS credit, social science.\\
+
+%@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+\noindent \Large \textbf{Course Requirements and Grades}\normalsize\\
+
+%The major course assignment is a quantitative research project. You will come up with a research question; find, visualize, and analyze data using skills and knowledge gained over the course of the semester; and write up the results in a paper. The assignment is intended to be a realistic application of quantitative social scientific analysis. The skills involved are valuable for both academic research and quantitative data analysis in the private sector, government, and non-profit worlds. There will be two assignments- a proposal and a data set- due earlier in the semester to ensure you get feedback and remain on track.
+
+\noindent \textbf{Homework Assignments}: There will be nine short homework assignments in this course. These are designed to develop your coding and reasoning skills.  Each homework assignment will be posted one week prior to its due date on Canvas.  You are encouraged to work with other students on your homework assignments, though each of you needs to do and submit your own work (your code and written explanations should not be identical to those you worked with).  Your lowest homework assignment grade will be dropped.  More details on assignments, including instructions and grading criteria, will be provided as they approach.  Total points: $8\times 10 = 80$.\\
+\\
+\noindent \textbf{Section}: Section grades are assigned at the discretion of your TA, who will provide you with specifics.  Total points: $10$.\\
+\\
+\noindent \textbf{Exam}: The exam is scheduled for Dec 20, 2022 from 7:25 -- 9:25 pm.  In general, I do not believe in using time pressure or memorization to assess the extent to which students have learned course material and so the final exam will be a take home, open book, open note affair (no collaboration) focused on replication of the data analysis in a scientific paper with a generous time allotment to complete it.  Total points: $10$.\\
+
+%Final grades will be determined according to the following distribution:
+%\begin{itemize}
+%\item Homework assignments: 10 points each for a total of 80 points;
+%\item Section: 10 points; 
+%\item Final exam: 10 points;
+%\end{itemize}
+The grading scale is the usual scale used at UW Madison:\\
+\begin{center}
+\begin{tabular*}{1.25in}{lc}
+\hline
+\hline
+A& 93--100\\
+AB& 88 -- 92.5\\
+B&83 -- 87.5\\
+BC&78 -- 82.5\\
+C&70 -- 77.5\\
+D&60 -- 69.5\\
+F&0 -- 59.5\\
+\hline
+\hline
+\end{tabular*}
+\end{center}
+
+\noindent Submitting a late homework assignment will result in a 1 point grade deduction per 24 hours late (e.g. a homework assignment graded 9 will be dropped to 8 if turned in 1 hour after the due date/time).  The final exam must be turned in on time.\\
+
+%@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+\noindent \Large \textbf{Attendance}\normalsize\\
+
+\noindent It will be very difficult to learn the course material without attending both section and lecture.  You are required to attend section every week.  If you have to miss section due to an illness, emergency, or approved sports or other extracurricular activity, I recommend that you try to attend another section that week.  If you will be unable to attend section at any point during the semester due to a religious observance, let your TA know in advance.\\
+\\
+\noindent I will not take attendance in lecture.  However, I do not recommend making a habit of missing lecture.  We will spend time in lecture on both statistical concepts and practical coding examples and understanding of both will be required to do well in the class.  Further, while I will regularly post lecture slides on Canvas, there will always be substantial amounts of content/explanations discussed in lecture that aren’t written out on slides.\\
+
+%@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+\noindent \Large \textbf{Technology}\normalsize\\
+
+\noindent In this course we will be using computer programs to do data analysis and you will be writing some computer code for this purpose.  Consequently, it will be difficult to do well in the course if you do not have reliable access to computing resources.  If this applies to you, please contact me as soon as you can so we can figure out laptop loaning from the university, etc.\\
+\\
+\noindent Laptops are allowed and encouraged in lecture and section.  Please do not abuse the privilege and try to make every effort to avoid social media, texting, and other distractions during class time. Cell phones should only be used during class for classroom activities or two-factor authentication.\\
+
+%@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+\noindent \Large \textbf{Office Hours and Contacting Me}\normalsize\\
+
+\noindent Office hours are a designated time when your lecturers and TAs are available to talk with students and they are for you! Office hours are drop in (no appointment needed) and you can stop by at anytime during the office hours period (not just at the start!). Please take advantage of them.  This is a course in which students tend to learn many new skills and nothing is more helpful when debugging code than talking it through with experienced R users, e.g. me or your TA.\footnote{Except perhaps \href{https://stackoverflow.com/}{stackoverflow}!}\\
+\\
+\noindent Email is the best way to reach me outside of office hours. Feel free to email me any time with questions, comments, or to set up an appointment.  I will do my best to respond to emails within 24 hours during the week.  Emails sent late at night or over the weekend will usually require more time for a response.\\
+
+
+%@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+\noindent \Large \textbf{Required Texts}\normalsize\\
+
+\noindent Textbooks for first courses in statistics can range from intuitive discussions all the way up through very rigorous, applied mathematical treatments.  In this class, we will utilize multiple text books aimed at the more intuitive end of the spectrum.  These have been selected because they are generally approachable and financially accessible.
+
+\begin{itemize}
+\item \href{https://moderndive.com/}{\color{blue}\underline{A ModernDive into R and the Tidyverse}} (Ismay and Kim);
+\item \href{https://r4ds.had.co.nz/}{\color{blue}\underline{R for Data Science}} (Grolemund and Wickham);
+\item \href{https://socviz.co/}{\color{blue}\underline{Data Visualization: A Practical Introduction}} (Healy);
+\item \href{ https://leanpub.com/openintro-statistics}{\color{blue}\underline{OpenIntro Statistics}} (Diaz et al., datasets used in this book are available \href{https://www.openintro.org/data/}{\color{blue}\underline{here}}).
+\end{itemize}
+Note: I will typically assign readings from only one of these texts at a time but the same material and concepts are generally covered in another one as well.\\
+
+%@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+\noindent \Large \textbf{Course Schedule}\normalsize\\
+
+%@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+%\begin{itemize}
+%\item Week 1: 
+\noindent Week 1:
+\begin{itemize}
+\item \textbf{7 September}: Welcome and course overview.
+\item \textbf{Discussion section/R topic}: Sign up for an RStudio Cloud account, Installing R and R Studio on your own computer;
+\end{itemize}
+
+%\item Week 2: 
+\noindent Week 2:
+\begin{itemize}
+\item \textbf{12 September}: What are political numbers?
+\item \textbf{14 September}: Basics of scientific inquiry/quantitative political science research;
+\item \textbf{Discussion section/R topic}: R Markdown, Rstudio, objects;
+\item Reading: 
+\begin{itemize}
+%\item Hempel, Carl G.  1966.  \textit{Philosophy of Natural Science}.  Chapters 1 and 2.
+\item Data Visualization: A Practical Introduction, \href{https://socviz.co/gettingstarted.html#be-patient-with-r-and-with-yourself}{\color{blue}\underline{Chapter 2}} up through section 2.4.
+\end{itemize}
+\end{itemize}
+
+%\item Week 3: 
+\noindent Week 3:
+\begin{itemize}
+\item \textbf{19 September}: Principles of Data Visualization;
+\item \textbf{21 September}: Descriptive Statistics;
+\item \textbf{Discussion section/R topic}: Visualizing data with ggplot;
+\item Reading: 
+\begin{itemize}
+\item Data Visualization: A Practical Introduction, \href{https://socviz.co/lookatdata.html#lookatdata}{\color{blue}\underline{Chapter 1}} and \href{https://socviz.co/makeplot.html#makeplot}{\color{blue}\underline{Chapter 3}}.
+\end{itemize}
+\end{itemize}
+
+%\item Week 4: 
+\noindent Week 4:
+\begin{itemize}
+\item \textbf{26 September}: Causality I;
+\item \textbf{28 September}: Causality II;
+\item \textbf{Discussion section/R topic}: Data manipulation, filter(), arrange(), select(), pipes(), mutate(), groupby(), summarize();
+\item Reading:
+\begin{itemize}
+\item \href{https://egap.org/resource/10-things-to-know-about-causal-inference/}{\color{blue}\underline{10 Things to Know About Causal Inference}};
+\end{itemize}
+\end{itemize}
+
+%\item Week 5: 
+\noindent Week 5:
+\begin{itemize}
+\item \textbf{3 October}: Randomized experiments vs Observational studies;
+\item \textbf{5 October}: Sampling I;
+\item \textbf{Discussion section/R topic}: Importing data;
+\item Reading:
+\begin{itemize}
+\item \textit{Modern Dive} \href{https://moderndive.com/7-sampling.html}{\color{blue}\underline{Chapter 7}};
+\end{itemize}
+\item Homework 1 due 7 October at midnight.
+\end{itemize}
+
+%\item Week 6;
+\noindent Week 6:
+\begin{itemize}
+\item \textbf{10 October}: Sampling II;
+\item \textbf{12 October}: Random variables and Probability distributions;
+\item \textbf{Discussion section/R topic}: Installing R and R studio on your own computer, cleaning and tidying data;
+\item Reading:
+\begin{itemize}
+\item \textit{OpenIntro Statistics}, \href{https://leanpub.com/os}{\color{blue}\underline{Chapter 4}}  through section 4.1.3;
+\end{itemize}
+\item Homework 2 due 14 October at midnight.
+\end{itemize}
+
+%\item Week 7: 
+\noindent Week 7:
+\begin{itemize}
+\item \textbf{17 October}: Inference and hypothesis testing;
+\item \textbf{19 October}: Linear Regression I;
+\item \textbf{Discussion section/R topic}: Hypothesis tests with the infer package, regression in R;
+\item Reading: 
+\begin{itemize}
+\item \textit{Modern Dive} \href{https://moderndive.com/9-hypothesis-testing.html}{\color{blue}\underline{Chapter 9}} sections 9.1 - 9.4 (skim 9.1 and 9.3).
+\item Kahane, Leo H. \textit{Regression Basics}. \href{https://methods-sagepub-com.ezproxy.library.wisc.edu/book/regression-basics/n1.xml}{\color{blue}\underline{Chapter 1}};
+\end{itemize}
+\item Homework 3 due 21 October at midnight.
+\end{itemize}
+
+%\item Week 8:
+\noindent Week 8:
+\begin{itemize}
+\item \textbf{24 October}: Linear Regression II;
+\item \textbf{26 October}: Nonlinearity;
+\item \textbf{Discussion section/R topic}: Regression in R, modeling nonlinearity;
+\item Reading: 
+\begin{itemize}
+\item \textit{OpenIntro} \href{https://www.openintro.org/redirect.php?go=stat_extra_nonlinear_relationships&referrer=os4_pdf}{\color{blue}\underline{Online Supplement: fitting models for non-linear trends}};
+\end{itemize}
+\item Homework 4 due 28 October at midnight.
+\end{itemize}
+
+%\item Week 9: 
+\noindent Week 9:
+\begin{itemize}
+\item \textbf{31 October}: Variable Interactions;
+\item \textbf{2 November}: Problems in regression; %(omitted variable bias, selection, endogeneity, multicollinearity, etc.) II; 
+\item \textbf{Discussion section/R topic}: incorporating interaction terms into regressions in R;
+\item Reading:
+\begin{itemize}
+\item \textit{OpenIntro} \href{https://www.openintro.org/redirect.php?go=stat_extra_interaction_effects&referrer=os4_pdf}{\color{blue}\underline{Online Supplement: interaction terms}};
+\end{itemize}
+\item Homework 5 due 4 November at midnight.
+\end{itemize}
+
+%\item Week 10: 
+\noindent Week 10:
+\begin{itemize}
+\item \textbf{7 November}: Diff in Diff;
+\item \textbf{9 November}: Binary dependent variables I;
+\item \textbf{Discussion section/R topic}: Diff in Diff in R, logistic regression in R;
+\item Reading:
+\begin{itemize}
+\item \textit{Impact Evaluation in Practice} \href{https://openknowledge.worldbank.org/handle/10986/25030}{\color{blue}\underline{Chapter 6}};
+\item \href{https://cfss.uchicago.edu/notes/logistic-regression/}{\color{blue}\underline{Logistic Regression}};
+\end{itemize}
+\item Homework 6 due 11 November at midnight.
+\end{itemize}
+
+%\item Week 11: 
+\noindent Week 11:
+\begin{itemize}
+\item \textbf{14 November}: Binary dependent variables II;
+\item \textbf{16 November} Binary dependent variables III;
+\item \textbf{Discussion section/R topic}: logistic regression in R, simple bootstrapping;
+\item Reading:
+\begin{itemize}
+\item \href{https://cfss.uchicago.edu/notes/logistic-regression/}{\color{blue}\underline{Logistic Regression}}.
+\end{itemize}
+\item Homework 7 due 18 November at midnight.
+\end{itemize}
+
+%\item Week 12: 
+\noindent Week 12:
+\begin{itemize}
+\item \textbf{21 November}: The Bootstrap;
+\item \textbf{23 November}: Thanksgiving is the 24th;
+\item Reading:
+\begin{itemize}
+\item \href{https://statisticsbyjim.com/hypothesis-testing/bootstrapping/}{\color{blue}\underline{Bootstrapping}};
+\end{itemize}
+\end{itemize}
+
+%\item Week 13:
+\noindent Week 13:
+\begin{itemize}
+\item \textbf{28 November}: Model metrics I;
+\item \textbf{30 November}: Model metrics II;
+\item \textbf{Discussion section/R topic}:
+\item Homework 8 due 2 December at midnight.
+\end{itemize}
+
+%\item Week 14: 
+\noindent Week 14:
+\begin{itemize}
+\item \textbf{5 December}: Out of sample prediction;
+\item \textbf{7 December} Polling;
+\item \textbf{Discussion section/R topic}: Review.
+%\item Reading:
+%\begin{itemize}
+%\item TBD;
+%\end{itemize}
+\item Homework 9 due 9 December at midnight.
+\end{itemize}
+
+%\item Week 14: 
+\noindent Week 15:
+\begin{itemize}
+\item \textbf{12 December}: Review;
+\item \textbf{14 December} (Last day of class): Final Q\&A.
+\item \textbf{Discussion section/R topic}: Review.
+%\item Reading:
+%\begin{itemize}
+%\item TBD;
+%\end{itemize}
+\end{itemize}
+
+
+%Diff in diff
+%Casual inference
+%Bayesian stats?
+
+% Welcome and introduction
+% Basics of quantitative political science research
+% Principles of data visualization
+% Visualizing data using R (og ggplot)
+% Basics of scientific inquiry
+% Causality I
+% Causality II
+% Random variables/distributions
+% Sampling I
+% Sampling II
+% Inference/hypothesis tests
+% Linear Regression I
+% Linear Regression II
+% Multiple Regression
+% Cleaning and tidying data
+% Machine Learning
+% Nonlinearity
+% Interactions
+% Bad controls and Colliders
+% Difference in differences
+% Binary dependent variables
+% Panel data/repeated measurements
+% Writing a research paper
+% Aggregating knowledge
+% Polling I
+% Polling II
+% Advanced topics
+
+% Randomized experiments
+% Observational studies
+% Survey sampling
+% Clustering
+% Prediction and loops
+% Regression
+% Probability and conditional probability
+% Random variables and their distributions, large sample theorems
+% Estimation
+% Hypothesis tests
+% Regression with uncertainty
+
+
+
+% Welcome and introduction
+% Basics of scientific inquiry/quantitative political science research
+% Causality
+% Randomized experiments vs Observational studies
+% Sampling (including selection effects)
+% Random variables/Probability distributions 
+% Inference/hypothesis tests
+% Linear Regression
+% Nonlinearity
+% Interactions
+% Problems in regression (Bad controls and Colliders, endogeneity, multicollinearity, etc.)
+% Binary dependent variables
+% Supervised Machine Learning
+% Unsupervised machine learning -- clustering
+
+
+
+
+%\end{itemize}
+
+
+
+
+\noindent \Large \textbf{Policy on Academic Dishonesty/Plagiarism}\normalsize\\
+
+\noindent I take academic integrity seriously. Cheating, fabrication, plagiarism, and unauthorized collaboration are all examples of academic misconduct.  Engaging in these practices will result in consequences including but not limited to failing the assignment, failing the class, academic probation, and suspension.\\
+
+\noindent When coding, it is common to collaborate with classmates or use online resources to solve a particular coding problem.  This is typically fine as long as you do not simply copy and paste large sections of code from another source.  If you have any questions about what is considered academic misconduct please talk to me or your TA.
+
+\end{document}
